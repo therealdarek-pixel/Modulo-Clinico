@@ -1,0 +1,22 @@
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editores / IDE / herramientas
+.vscode/
+.idea/
+.claude/
+*.swp
+*.swo
+
+# Build / deps
+node_modules/
+dist/
+
+# Logs
+*.log
+
+# Variables locales sensibles
+.env
+.env.local

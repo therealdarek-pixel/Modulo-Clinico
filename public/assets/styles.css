@@ -1,0 +1,200 @@
+/* ===========================================================
+   Estilos custom de Bienestar Municipal — portados desde el
+   index.css del proyecto React original. Se cargan DESPUÉS de
+   Tailwind CDN y dependen de los tokens definidos en
+   tailwind-config.js (colores cream/sage/clay/ink, etc).
+   =========================================================== */
+
+:root {
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
+}
+
+/* ============ Base ============ */
+html, body { background: #FBF8F2; color: #1F2421; }
+body {
+  font-family: 'Outfit', system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+h1, h2, h3, h4 {
+  font-family: 'Fraunces', serif;
+  letter-spacing: -0.015em;
+  font-variation-settings: "opsz" 60;
+}
+::selection { background: #B6CFB1; color: #1F2421; }
+:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px #FBF8F2, 0 0 0 4px rgba(122,160,121,0.45);
+  border-radius: 14px;
+}
+
+/* ============ Componentes ============ */
+.card {
+  background: #fff;
+  border-radius: 1.5rem;
+  box-shadow: 0 1px 2px rgba(31,36,33,0.04), 0 8px 24px rgba(31,36,33,0.06);
+  border: 1px solid rgba(0,0,0,0.04);
+  padding: 1.5rem;
+  transition: box-shadow 240ms var(--ease-out), transform 240ms var(--ease-out);
+}
+.card-hover { /* misma base que .card pero con hover */
+  background: #fff;
+  border-radius: 1.5rem;
+  box-shadow: 0 1px 2px rgba(31,36,33,0.04), 0 8px 24px rgba(31,36,33,0.06);
+  border: 1px solid rgba(0,0,0,0.04);
+  padding: 1.5rem;
+  transition: box-shadow 280ms var(--ease-out), transform 280ms var(--ease-out);
+}
+.card-hover:hover {
+  box-shadow: 0 1px 2px rgba(31,36,33,0.05), 0 16px 40px -8px rgba(31,36,33,0.12);
+  transform: translateY(-2px);
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.625rem 1.25rem;
+  border-radius: 9999px;
+  font-weight: 500;
+  user-select: none;
+  cursor: pointer;
+  transition: background-color 180ms var(--ease-out),
+              color 180ms var(--ease-out),
+              box-shadow 180ms var(--ease-out),
+              transform 160ms var(--ease-out);
+  border: none;
+  font-family: inherit;
+  font-size: inherit;
+}
+.btn:active:not(:disabled) { transform: scale(0.97); }
+.btn:disabled { cursor: not-allowed; }
+
+.btn-primary {
+  /* hereda de .btn al combinarse en el HTML: class="btn btn-primary" */
+  background: #1F2421;
+  color: #F8F4EC;
+  box-shadow: 0 1px 0 rgba(255,255,255,0.08) inset, 0 4px 16px -4px rgba(31,36,33,0.4);
+}
+.btn-primary:hover:not(:disabled) { background: #2F3633; }
+.btn-ghost   { background: transparent; color: #1F2421; }
+.btn-ghost:hover:not(:disabled) { background: rgba(0,0,0,0.05); }
+.btn-soft    { background: #E2EBE0; color: #3F5F44; }
+.btn-soft:hover:not(:disabled)  { background: rgba(182,207,177,0.6); }
+.btn-outline { background: #fff; color: #1F2421; border: 1px solid rgba(0,0,0,0.1); }
+.btn-outline:hover:not(:disabled) { border-color: rgba(0,0,0,0.2); }
+
+.input {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border-radius: 1rem;
+  background: #fff;
+  border: 1px solid rgba(0,0,0,0.1);
+  outline: none;
+  font-family: inherit;
+  font-size: inherit;
+  color: #1F2421;
+  transition: border-color 180ms var(--ease-out), box-shadow 200ms var(--ease-out);
+}
+.input::placeholder { color: rgba(107,117,112,0.6); }
+.input:focus {
+  border-color: #7AA079;
+  box-shadow: 0 0 0 4px rgba(122,160,121,0.18);
+}
+
+.label {
+  display: block;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: rgba(31,36,33,0.8);
+  margin-bottom: 0.375rem;
+}
+
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.375rem 1rem;
+  border-radius: 9999px;
+  font-size: 0.875rem;
+  background: #fff;
+  border: 1px solid rgba(0,0,0,0.1);
+  color: rgba(31,36,33,0.7);
+  cursor: pointer;
+  font-family: inherit;
+  transition: background-color 180ms var(--ease-out),
+              color 180ms var(--ease-out),
+              border-color 180ms var(--ease-out),
+              transform 140ms var(--ease-out);
+}
+.chip:hover { border-color: rgba(31,36,33,0.2); }
+.chip:active { transform: scale(0.97); }
+.chip[data-active="true"] {
+  background: #1F2421;
+  color: #F8F4EC;
+  border-color: #1F2421;
+}
+
+.option-tile {
+  width: 100%;
+  text-align: left;
+  padding: 1rem 1.25rem;
+  border-radius: 1rem;
+  border: 1px solid rgba(0,0,0,0.1);
+  background: #fff;
+  color: #1F2421;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 1rem;
+  transition: border-color 200ms var(--ease-out),
+              background-color 200ms var(--ease-out),
+              color 200ms var(--ease-out),
+              transform 160ms var(--ease-out),
+              box-shadow 200ms var(--ease-out);
+}
+.option-tile:hover { border-color: #7AA079; background: #F1F5F0; }
+.option-tile:active { transform: scale(0.985); }
+.option-tile[data-selected="true"] {
+  background: #1F2421;
+  color: #F8F4EC;
+  border-color: #1F2421;
+  box-shadow: 0 1px 0 rgba(255,255,255,0.08) inset, 0 8px 24px -8px rgba(31,36,33,0.35);
+}
+
+/* ============ Utilidades ============ */
+.bg-mesh {
+  background-image:
+    radial-gradient(at 12% 18%, rgba(122,160,121,0.22) 0, transparent 38%),
+    radial-gradient(at 88% 22%, rgba(216,154,130,0.18) 0, transparent 42%),
+    radial-gradient(at 50% 95%, rgba(182,207,177,0.20) 0, transparent 45%),
+    linear-gradient(180deg, #FBF8F2 0%, #FBF8F2 100%);
+}
+.bg-grain {
+  background-image:
+    radial-gradient(circle at 18% 22%, rgba(122,160,121,0.07) 0, transparent 42%),
+    radial-gradient(circle at 82% 72%, rgba(216,154,130,0.07) 0, transparent 42%);
+}
+.text-balance { text-wrap: balance; }
+.gradient-mask-r {
+  -webkit-mask-image: linear-gradient(to right, black 70%, transparent);
+          mask-image: linear-gradient(to right, black 70%, transparent);
+}
+
+/* ============ Reduced motion ============ */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
