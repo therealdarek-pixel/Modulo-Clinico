@@ -97,8 +97,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 "INSERT INTO resultados (usuario_id, cuestionario_id, puntaje_total, puntaje_max, porcentaje, nivel) -- guardamos el resultado general del cuestionario (una fila resumen con el puntaje total, porcentaje y nivel)
                  VALUES (?, ?, ?, ?, ?, ?)"
             );
-            $ins->execute([$idUsuario, $cuestionario['id'], $puntajeTotal, $puntajeMax, $porcentaje, $nivel]);
-            $idResultado = (int)$pdo->lastInsertId();
+            $ins->execute([$idUsuario, $cuestionario['id'], $puntajeTotal, $puntajeMax, $porcentaje, $nivel]); 
+            $idResultado = (int)$pdo->lastInsertId(); 
 
             // Guardamos el detalle: una fila por pregunta respondida.
             $insR = $pdo->prepare(

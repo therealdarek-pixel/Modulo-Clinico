@@ -31,7 +31,7 @@ $pdo = db();                                                                    
 // JOIN con cuestionarios para traer también titulo/slug/icono/color (datos del cuestionario).
 $stmt = $pdo->prepare(
     "SELECT r.*, c.titulo, c.slug, c.icono, c.color
-       FROM resultados r JOIN cuestionarios c ON c.id = r.cuestionario_id
+       FROM resultados r JOIN cuestionarios c ON c.id = r.cuestionario_id   
       WHERE r.id = ? AND r.usuario_id = ?"                                            // dos condiciones: id + dueño → evita ver resultados ajenos
 );
 $stmt->execute([$id, $idUsuario]);                                                   // pasamos los dos parámetros en orden

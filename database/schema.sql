@@ -47,7 +47,7 @@ CREATE TABLE IF NOT EXISTS preguntas (
   orden           INT DEFAULT 0,
   CONSTRAINT fk_pregunta_cuestionario
     FOREIGN KEY (cuestionario_id) REFERENCES cuestionarios(id)
-    ON DELETE CASCADE
+    ON DELETE CASCADE 
 ) ENGINE=InnoDB;
 
 -- ---------------------------------------------------------------------
@@ -297,4 +297,46 @@ CREATE TABLE IF NOT EXISTS ficha (
   actualizado_en  TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP, -- fecha de última actualización automática
   CONSTRAINT fk_ficha_usuario                                                      -- relación con el usuario al que pertenece la ficha
     FOREIGN KEY (usuario_id) REFERENCES usuarios(id) ON DELETE CASCADE             -- si se borra el usuario, se borra su ficha también
+) ENGINE=InnoDB;
+
+-- ---------------------------------------------------------------------
+-- EVALUACIONES PREVENTIVAS
+-- Cada fila es una "foto" de la evaluación integral generada a partir
+-- del último resultado de cada cuestionario.
+-- ---------------------------------------------------------------------
+CREATE TABLE IF NOT EXISTS evaluaciones_preventivas (
+  id          INT AUTO_INCREMENT PRIMARY KEY,
+  usuario_id  INT NOT NULL,
+  puntaje     INT NOT NULL,                                  -- 0-100
+  nivel       ENUM('bajo','moderado','elevado') NOT NULL,
+  creado_en   TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (usuario_id) REFERENCES usuarios(id) ON DELETE CASCADE
+) ENGINE=InnoDB;
+
+-- ---------------------------------------------------------------------
+-- FACTORES DE UNA EVALUACIÓN (relación 1:N con evaluaciones_preventivas)
+-- Cada fila es un factor detectado dentro de esa evaluación.
+-- ---------------------------------------------------------------------
+CREATE TABLE IF NOT EXISTS evaluacion_factores (
+  id            INT AUTO_INCREMENT PRIMARY KEY,
+  evaluacion_id INT NOT NULL,
+  factor_id     VARCHAR(30) NOT NULL,                        -- slug del factor (diabetes, insomnio, etc.)
+  titulo        VARCHAR(120) NOT NULL,
+  puntaje       INT NOT NULL,
+  que_significa TEXT NOT NULL,
+  FOREIGN KEY (evaluacion_id)
+    REFERENCES evaluaciones_preventivas(id) ON DELETE CASCADE
+) ENGINE=InnoDB;
+
+-- ---------------------------------------------------------------------
+-- DETALLES DE CADA FACTOR (razones de detección + recomendaciones)
+-- ---------------------------------------------------------------------
+CREATE TABLE IF NOT EXISTS evaluacion_detalles (
+  id        INT AUTO_INCREMENT PRIMARY KEY,
+  factor_id INT NOT NULL,
+  tipo      ENUM('detectado_por','recomendacion') NOT NULL,
+  texto     TEXT NOT NULL,
+  orden     INT DEFAULT 0,
+  FOREIGN KEY (factor_id)
+    REFERENCES evaluacion_factores(id) ON DELETE CASCADE
 ) ENGINE=InnoDB;

@@ -27,6 +27,7 @@ $nav = [
     ['href' => 'cuestionarios.php', 'label' => 'Cuestionarios', 'icon' => 'clipboard-list', 'key' => 'cuestionarios'],
     ['href' => 'historial.php',     'label' => 'Historial',     'icon' => 'history',        'key' => 'historial'],
     ['href' => 'ficha.php',         'label' => 'Mi ficha',      'icon' => 'file-text',      'key' => 'ficha'],
+    ['href' => 'evaluacion.php',    'label' => 'Evaluación Preventiva', 'icon' => 'shield-check', 'key' => 'evaluacion'],
     ['href' => 'perfil.php',        'label' => 'Perfil',        'icon' => 'user',           'key' => 'perfil'],
 ];
 ?>

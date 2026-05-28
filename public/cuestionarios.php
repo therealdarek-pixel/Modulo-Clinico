@@ -30,9 +30,10 @@ require __DIR__ . '/../includes/header.php';         // pinta <head>, sidebar y 
 
   <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">                              <!-- Grid: 1 col móvil, 2 tablet, 3 escritorio -->
     <?php foreach ($lista as $i => $c): ?>                                            <!-- $i = índice (para delay), $c = cuestionario -->
-      <a href="cuestionario.php?slug=<?= urlencode($c['slug']) ?>"                    <!-- enlace al wizard, pasando el slug en la URL -->
+      <!-- enlace al wizard, pasando el slug en la URL; aparece 50ms después que la tarjeta anterior -->
+      <a href="cuestionario.php?slug=<?= urlencode($c['slug']) ?>"
          class="card-hover group flex flex-col h-full animate-fade-up relative overflow-hidden"
-         style="animation-delay:<?= $i * 50 ?>ms">                                    <!-- aparece 50ms después que la tarjeta anterior -->
+         style="animation-delay:<?= $i * 50 ?>ms">
         <div class="w-12 h-12 rounded-2xl flex items-center justify-center mb-4 <?= color_classes($c['color']) ?>"><!-- icono con su color -->
           <?= icono_cuestionario($c['icono']) ?>                                      <!-- pinta el icono Lucide guardado en BD -->
         </div>
