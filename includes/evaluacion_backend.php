@@ -19,6 +19,33 @@
 
 const EVAL_SLUGS = ['sueno','cansancio','hidratacion','dolor','energia','habitos','riesgos']; // los 7 cuestionarios que entran en la evaluación
 
+//   ┌─ CÁLCULOS QUE HACE ESTE ARCHIVO ─────────────────────────────────────────────────────┐
+//   │ ESCALAS                                                                              │
+//   │   respuesta de "riesgos" (r1..r7): vale 1..5, donde 5 = mejor, ≤ 2 = mala            │
+//   │   porcentaje de cuestionario: 0..100, donde más alto = mejor bienestar               │
+//   │                                                                                      │
+//   │ REGLA DE CADA FACTOR (si la condición es cierta, suma esos puntos)                   │
+//   │   diabetes      +25  si  (r1≤2 o r3≤2)  Y  (r5≤2 o r7≤2)                            │
+//   │   hipertensión  +20  si   r2≤2          Y  (r4≤2 o r5≤2)                            │
+//   │   insomnio      +20  si  sueño<50       y  cansancio<50  y  energía<50              │
+//   │   sedentarismo  +15  si  hábitos<50     y  energía<50    y  dolor<60                │
+//   │   deshidratac.  +10  si  hidratación<45 y  dolor<60                                  │
+//   │   estrés        +10  si  energía<45     y  sueño<50      y  hábitos<50              │
+//   │                                                                                      │
+//   │ RELLENO PARA NO DAR FALSOS POSITIVOS (en calcularEvaluacion)                         │
+//   │   si falta un porcentaje  → se asume 100 (sin riesgo)                                │
+//   │   si falta una respuesta  → se asume   5 (mejor opción)                              │
+//   │                                                                                      │
+//   │ PUNTAJE TOTAL                                                                        │
+//   │   suma de los puntos de los factores que dispararon                                  │
+//   │   tope = 25+20+20+15+10+10 = 100  (si pasa, se recorta a 100)                       │
+//   │                                                                                      │
+//   │ NIVEL (a partir del puntaje)                                                         │
+//   │    0-30  → bajo     (verde,    sin alertas)                                          │
+//   │   31-60  → moderado (amarillo, atención)                                             │
+//   │   61-100 → elevado  (rojo,     ver médico)                                           │
+//   └──────────────────────────────────────────────────────────────────────────────────────┘
+
 // =====================================================================
 // 1) LECTURA DE DATOS
 // =====================================================================
