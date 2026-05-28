@@ -30,8 +30,8 @@ $pdo = db();                                                                    
 // --- 2) Cargar el resultado (filtrando por usuario para que nadie vea resultados de otros) ---
 // JOIN con cuestionarios para traer también titulo/slug/icono/color (datos del cuestionario).
 $stmt = $pdo->prepare(
-    "SELECT r.*, c.titulo, c.slug, c.icono, c.color
-       FROM resultados r JOIN cuestionarios c ON c.id = r.cuestionario_id   
+    "SELECT r.*, c.titulo, c.slug, c.icono, c.color                                     -- selecciona todas las columnas de resultados + algunas de cuestionarios
+       FROM resultados r JOIN cuestionarios c ON c.id = r.cuestionario_id             -- une resultados con cuestionarios para mostrar título, icono y color
       WHERE r.id = ? AND r.usuario_id = ?"                                            // dos condiciones: id + dueño → evita ver resultados ajenos
 );
 $stmt->execute([$id, $idUsuario]);                                                   // pasamos los dos parámetros en orden

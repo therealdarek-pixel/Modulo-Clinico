@@ -26,9 +26,9 @@ $stmt->execute([$idUsuario]);
 $titulos = $stmt->fetchAll();
 
 // --- 2) Lista de resultados (misma query, con o sin filtro por slug) ---
-$sqlBase = "SELECT r.id, r.porcentaje, r.nivel, r.creado_en, c.titulo, c.slug, c.icono, c.color
-              FROM resultados r JOIN cuestionarios c ON c.id = r.cuestionario_id
-             WHERE r.usuario_id = ?";
+$sqlBase = "SELECT r.id, r.porcentaje, r.nivel, r.creado_en, c.titulo, c.slug, c.icono, c.color -- solo las columnas necesarias
+              FROM resultados r JOIN cuestionarios c ON c.id = r.cuestionario_id                -- une resultados con cuestionarios para mostrar título, icono y color
+             WHERE r.usuario_id = ?";                                                    // base de la query, con filtro por usuario; el filtro por cuestionario se añade solo si no es "todos"
 $params = [$idUsuario];
 if ($filtro !== 'todos') {
     $sqlBase .= " AND c.slug = ?";

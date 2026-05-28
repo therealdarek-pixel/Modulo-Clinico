@@ -52,7 +52,7 @@ $porCuestionario = $stmt->fetchAll();                                           
 $stmt = $pdo->prepare(
     "SELECT DATE(creado_en) fecha, AVG(porcentaje) promedio
        FROM resultados
-      WHERE usuario_id = ? AND creado_en >= (NOW() - INTERVAL 30 DAY)
+      WHERE usuario_id = ? AND creado_en >= (NOW() - INTERVAL 30 DAY)    -- solo últimos 30 días
    GROUP BY DATE(creado_en) ORDER BY fecha ASC"
 );
 $stmt->execute([$idUsuario]);

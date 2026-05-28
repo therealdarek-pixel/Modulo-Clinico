@@ -56,6 +56,25 @@ unset($p);                                                                      
 
 $error = null;
 
+//   ┌─ CÁLCULOS QUE HACE ESTE ARCHIVO ─────────────────────────────────────────────┐
+//   │ ESCALA DE OPCIONES                                                           │
+//   │   cada opción vale 1..5, donde 5 = mejor (más bienestar)                     │
+//   │                                                                              │
+//   │ FÓRMULAS (cuando el usuario envía el cuestionario por POST)                  │
+//   │   puntajeTotal = suma de los valores 1..5 de las opciones elegidas           │
+//   │   puntajeMax   = (número de preguntas) × 5                                   │
+//   │   porcentaje   = (puntajeTotal / puntajeMax) × 100   (redondeado a 2 dec.)   │
+//   │                                                                              │
+//   │ NIVEL (a partir del porcentaje, escala donde MÁS ALTO = MEJOR)               │
+//   │   porcentaje ≥ 75 → alto   (verde,  buen bienestar)                          │
+//   │   porcentaje ≥ 45 → medio  (ámbar,  bienestar regular)                       │
+//   │   porcentaje < 45 → bajo   (coral,  necesita atención)                       │
+//   │                                                                              │
+//   │ EJEMPLO con 7 preguntas y 23 puntos sumados                                  │
+//   │   puntajeMax = 7 × 5 = 35                                                    │
+//   │   porcentaje = 23/35 × 100 = 65.71  →  nivel "medio"                         │
+//   └──────────────────────────────────────────────────────────────────────────────┘
+
 // --- 4) Procesar el POST cuando el usuario envía sus respuestas ---
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $resp = $_POST['respuestas'] ?? [];
